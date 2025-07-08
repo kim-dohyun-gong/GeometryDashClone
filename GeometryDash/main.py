@@ -3,7 +3,7 @@ import sys
 import random
 import math
 
-# 게임 초기화
+# 게임 초기화asdasd
 pygame.init()
 
 # 화면 설정
