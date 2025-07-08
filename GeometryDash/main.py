@@ -2,9 +2,8 @@ import pygame
 import sys
 import random
 import math
-#dkdkdk
-# 게임 초기화 ㅎㅎ
 
+# 게임 초기화dfas
 pygame.init()
 
 # 화면 설정
