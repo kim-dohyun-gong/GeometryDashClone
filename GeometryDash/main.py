@@ -3,7 +3,7 @@ import sys
 import random
 import math
 
-# 게임 초기화dfasdsffadsfasdfasdfsfdfs
+# 게임 초기화dfasdsffadsfasdfasdfsfdfs 20205
 pygame.init()
 
 # 화면 설정
