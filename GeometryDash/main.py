@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 import math
-#dkdkdkㄴㅇㄹ
+#dkdkdkㄴㅇㄹhhh
 # 게임 초기화
 pygame.init()
 
