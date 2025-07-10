@@ -1,4 +1,4 @@
-#짭메트리대쉬 jjapmetry-Dash
+#짭메트리대쉬 jjapmetry-Dash hhaaahh
 import pygame
 import sys
 import random
