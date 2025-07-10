@@ -502,13 +502,13 @@ class ObstaclePattern:
 
     def get_next_pattern(self, score):
         """점수에 따라 패턴을 선택"""
-        if score < 150:
+        if score < 600:
             # 초반엔 매우 쉬운 패턴 (단독 장애물만)
             return random.choice(self.patterns[:2])
-        elif score < 800:
+        elif score < 1400:
             # 중반엔 간단한 패턴
             return random.choice(self.patterns[:5])
-        elif score < 1200:
+        elif score < 2000:
             # 중후반엔 중간 난이도 패턴
             return random.choice(self.patterns[:8])
         else:
