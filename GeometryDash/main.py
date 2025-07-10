@@ -1,3 +1,4 @@
+#짭메트리대쉬 jjapmetry-Dash
 import pygame
 import sys
 import random
@@ -6,6 +7,28 @@ import math
 # 게임 초기화
 pygame.init()
 
+
+# 게임 초기화 부분에서
+pygame.mixer.init()  # 음악 믹서 초기화
+
+# 음악 로드
+pygame.mixer.music.load("임시assets/Madness.mp3")  # 파일 경로
+pygame.mixer.music.play(-1)
+
+
+def restart_game(self):
+    # 먼저 게임오버 상태를 False로 바꾸기
+    self.game_over = False
+    self.score = 0
+    self.obstacles.clear()
+
+    # 그 다음에 음악 재시작
+    pygame.mixer.music.play(-1)
+    print("게임 재시작, 음악 재생")
+
+    # 음악 재시작
+    pygame.mixer.music.stop()  # 현재 음악 정지
+    pygame.mixer.music.play(-1)  # 다시 처음부터 재생
 # 화면 설정
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -357,6 +380,7 @@ class Background:
             self.use_ground_image = False
 
     def update(self):
+
         self.bg_x1 -= BACKGROUND_SPEED
         self.bg_x2 -= BACKGROUND_SPEED
 
@@ -425,8 +449,11 @@ class GameOverScreen:
         restart_rect = restart_text.get_rect(center=self.restart_button.center)
         screen.blit(restart_text, restart_rect)
 
+    # GameOverScreen에서
     def handle_click(self, pos):
-        return self.restart_button.collidepoint(pos)
+        return self.restart_button.collidepoint(pos), pygame.mixer.music.play(-1)
+
+
 
 
 class ObstaclePattern:
@@ -475,13 +502,13 @@ class ObstaclePattern:
 
     def get_next_pattern(self, score):
         """점수에 따라 패턴을 선택"""
-        if score < 3:
+        if score < 150:
             # 초반엔 매우 쉬운 패턴 (단독 장애물만)
             return random.choice(self.patterns[:2])
-        elif score < 8:
+        elif score < 800:
             # 중반엔 간단한 패턴
             return random.choice(self.patterns[:5])
-        elif score < 15:
+        elif score < 1200:
             # 중후반엔 중간 난이도 패턴
             return random.choice(self.patterns[:8])
         else:
@@ -490,6 +517,11 @@ class ObstaclePattern:
 
 
 class Game:
+    # Game 클래스에서
+    def handle_click(self, pos):
+        if self.game_over_screen.handle_click(pos):
+            self.restart_game()
+
     def __init__(self):
         self.player = Player()
         self.obstacles = []
@@ -543,10 +575,17 @@ class Game:
             self.obstacle_spawn_timer -= 1
 
     def update(self):
+
+        if self.game_over:
+            pygame.mixer.music.stop()  # 음악 정지
         if not self.game_over:
             self.player.update()
             self.background.update()
             self.spawn_obstacle()
+            self.score += 2
+
+
+
 
             for obstacle in self.obstacles[:]:
                 obstacle.update()
@@ -561,7 +600,7 @@ class Game:
 
                 if obstacle.is_off_screen():
                     self.obstacles.remove(obstacle)
-                    self.score += 1
+                    #self.score += 100
 
     def draw(self, screen):
         self.background.draw(screen)
