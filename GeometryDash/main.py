@@ -512,7 +512,7 @@ class Game:
         self.score = 0
         self.game_over = False
         self.obstacle_spawn_timer = 0
-        self.obstacle_spawn_delay = 120  # 초기 간격 복구
+        self.obstacle_spawn_delay = 120  # 초기 간격 복구 ff
         self.current_pattern = []
         self.pattern_spawn_index = 0
 
